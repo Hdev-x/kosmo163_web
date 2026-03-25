@@ -9,7 +9,7 @@ import com.gguek.app.util.DBConnection;
 
 public class CountriesDAO {
 	
-	public void detail(String countryId) throws Exception {
+	public CountiresDTO detail(String countryId) throws Exception {
 		DBConnection connection = new DBConnection();
 		Connection con = connection.getConnection();
 		
@@ -23,17 +23,21 @@ public class CountriesDAO {
 		st.setString(1, countryId);
 		
 		ResultSet rs = st.executeQuery();
+		CountiresDTO dto = null;
 		
 		if (rs.next()) {
-			String name = rs.getString("COUNTRY_NAME");
-			System.out.println(name);
-		}else {
-			System.out.println("없다");
+			dto = new CountiresDTO();
+			dto.setCountryId(rs.getString("COUNTRY_ID"));
+			dto.setCountryName(rs.getString("COUNTRY_NAME"));
+			dto.setRegionId(rs.getInt("REGION_ID"));
+			
 		}
 		
 		rs.close();
 		st.close();
 		con.close();
+		
+		return dto;
 	}
 	
 	

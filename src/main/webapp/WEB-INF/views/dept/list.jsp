@@ -21,7 +21,8 @@
 			
 				<c:forEach items="${list}" var="d">
 					<tr>
-						<td>${d.departmentId}</td><td>${d.departmentName}</td>				
+						<td></a>${d.departmentId}</td>
+						<td><a href= "/dept/detail?departmentId=${d.departmentId}">${d.departmentName}</td>				
 					</tr>
 			<!-- getter의 이름 : getter메서드에서
 				 get을 빼고 () 빼고 첫글자를 소문자로 바꾼거

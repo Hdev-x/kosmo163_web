@@ -17,13 +17,12 @@ public class DepartmentDAO {
 
 	}
 
-	public void detail(int departmentId) throws Exception {
+	public DepartmentDTO detail(int departmentId) throws Exception {
 
 		Connection con = connection.getConnection();
 
 		String sql = """
-				SELECT * FROM DEPARTMENTS
-				WHERE DEPARTMENT_ID = ?
+				SELECT * FROM DEPARTMENTS WHERE DEPARTMENT_ID = ?
 				""";
 
 		PreparedStatement st = con.prepareStatement(sql);
@@ -32,17 +31,22 @@ public class DepartmentDAO {
 		st.setInt(1, departmentId);
 
 		ResultSet rs = st.executeQuery();
+		DepartmentDTO dto = null;
 
 		if (rs.next()) {
-			String name = rs.getString("DEPARTMENT_NAME");
-			System.out.println(name);
-		} else {
-			System.out.println("부서가 없다");
-		}
+			dto = new DepartmentDTO();
+			dto.setDepartmentId(rs.getInt("DEPARTMENT_ID"));
+			dto.setDepartmentName(rs.getString("DEPARTMENT_NAME"));
+			dto.setManagerId(rs.getInt("MANAGER_ID"));
+			dto.setLocationId(rs.getInt("LOCATION_ID"));
+			
+		} 
 
 		rs.close();
 		st.close();
 		con.close();
+		
+		return dto;
 
 	}
 

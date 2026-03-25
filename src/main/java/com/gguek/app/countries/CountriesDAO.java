@@ -3,6 +3,7 @@ package com.gguek.app.countries;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import com.gguek.app.util.DBConnection;
 
@@ -36,7 +37,7 @@ public class CountriesDAO {
 	}
 	
 	
-	public void list() throws Exception {
+	public ArrayList<CountiresDTO> list() throws Exception {
 		
 		//1. DB연결
 		DBConnection DBC = new DBConnection();
@@ -53,12 +54,19 @@ public class CountriesDAO {
 				
 		//5. 최종전송 및 결과처리
 		ResultSet rs = pres.executeQuery();
-		
+		ArrayList<CountiresDTO> ar = new ArrayList<>();
 		while (rs.next()) {
+			CountiresDTO dto = new CountiresDTO();
+			
+			String cId = rs.getString("COUNTRY_ID");
 			String name = rs.getString("COUNTRY_NAME");
-			String id = rs.getString("COUNTRY_ID");
-			String idr = rs.getString("REGION_ID");
-			System.out.println(name+" ; "+id+" : "+idr);
+			int rId = rs.getInt("REGION_ID");
+			
+			dto.setCountryId(cId);
+			dto.setCountryName(name);
+			dto.setRegionId(rId);
+			
+			ar.add(dto);
 		}
 				
 				
@@ -67,7 +75,7 @@ public class CountriesDAO {
 		pres.close();
 		con.close();
 		
-		
+		return ar;
 	}
 
 }

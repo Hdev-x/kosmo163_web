@@ -9,27 +9,79 @@ import java.util.ArrayList;
 import com.gguek.app.util.DBConnection;
 
 public class DepartmentDAO {
-
+	
 	private DBConnection connection;
+
+	
+//	-----------------------------------------------------------------
+	
 
 	public DepartmentDAO() {
 		this.connection = new DBConnection();
-
 	}
 
-	public DepartmentDTO detail(int departmentId) throws Exception {
-
+	
+//	------------------------------------------------------------------
+	
+	
+		// 1. DB연결
+		// 2. 쿼리문 작성
+		// 3. 쿼리문 미리 전송
+		// 4. ?값을 세팅
+		// 5. 최종전송 및 결과처리
+		// 6. 연결 해제
+	
+	
+// ------------------------------------------------------------------
+	
+	
+	
+	public int create(DepartmentDTO departmentDTO) throws Exception {
 		Connection con = connection.getConnection();
-
+		String sql = """
+						INSERT INTO DEPARTMENTS
+						VALUES (DEPARTMENTS_SEQ.NEXTVAL, ?, ?, ?)
+					""";
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, departmentDTO.getDepartmentName());
+		st.setInt(2, departmentDTO.getManagerId());
+		st.setInt(3, departmentDTO.getLocationId());
+		
+		int result = st.executeUpdate();
+		
+//		System.out.println(result);
+		
+		st.close();
+		con.close();
+		
+		return result;
+				
+	}
+	
+	
+	
+//	-----------------------------------------------------------------
+	
+	
+	
+	public DepartmentDTO detail(int departmentId) throws Exception {
+		
+		// 1. DB연결
+		Connection con = connection.getConnection();
+		
+		// 2. 쿼리문 작성
 		String sql = """
 				SELECT * FROM DEPARTMENTS WHERE DEPARTMENT_ID = ?
 				""";
-
+		
+		// 3. 쿼리문 미리 전송
 		PreparedStatement st = con.prepareStatement(sql);
 
 		// 4. ?값을 세팅
 		st.setInt(1, departmentId);
-
+		
+		// 5. 최종전송 및 결과처리
 		ResultSet rs = st.executeQuery();
 		DepartmentDTO dto = null;
 
@@ -41,7 +93,8 @@ public class DepartmentDAO {
 			dto.setLocationId(rs.getInt("LOCATION_ID"));
 			
 		} 
-
+		
+		// 6. 연결 해제
 		rs.close();
 		st.close();
 		con.close();
@@ -49,6 +102,12 @@ public class DepartmentDAO {
 		return dto;
 
 	}
+	
+	
+	
+	//--------------------------------------------------------------
+	
+	
 
 	public ArrayList<DepartmentDTO> list() throws Exception {
 
@@ -96,5 +155,9 @@ public class DepartmentDAO {
 		return ar;
 
 	}
+	
+	
+//	---------------------------------------------------------------
+	
 
 }

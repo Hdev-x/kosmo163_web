@@ -10,6 +10,10 @@
 <body>
 	<h4>국가 리스트</h4>
 	<div>
+		<a href="/country/create">국가등록</a>
+	</div>
+	
+	<div>
 		<table>
 			<thead>
 				<tr>

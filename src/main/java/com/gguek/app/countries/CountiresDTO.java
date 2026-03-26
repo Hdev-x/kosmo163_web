@@ -4,7 +4,7 @@ public class CountiresDTO {
 	
 	private String countryId;
 	private String countryName;
-	private int regionId;
+	private Integer regionId;
 	
 	
 	
@@ -20,13 +20,16 @@ public class CountiresDTO {
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
 	}
-	public int getRegionId() {
+	public Integer getRegionId() {
 		return regionId;
 	}
-	public void setRegionId(int regionId) {
+	public void setRegionId(Integer regionId) {
 		this.regionId = regionId;
 	}
-
+	
+	
+	
+	
 	
 	
 	

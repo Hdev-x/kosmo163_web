@@ -2,16 +2,18 @@ package com.gguek.app.departments;
 
 public class DepartmentDTO {
 	
-	private int departmentId;
+	private Integer departmentId;
 	private String departmentName;
-	private int managerId;
-	private int locationId;
+	private Integer managerId;
+	private Integer locationId;
 	
 	
-	public int getDepartmentId() {
+	
+	
+	public Integer getDepartmentId() {
 		return departmentId;
 	}
-	public void setDepartmentId(int departmentId) {
+	public void setDepartmentId(Integer departmentId) {
 		this.departmentId = departmentId;
 	}
 	public String getDepartmentName() {
@@ -20,18 +22,21 @@ public class DepartmentDTO {
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
-	public int getManagerId() {
+	public Integer getManagerId() {
 		return managerId;
 	}
-	public void setManagerId(int managerId) {
+	public void setManagerId(Integer managerId) {
 		this.managerId = managerId;
 	}
-	public int getLocationId() {
+	public Integer getLocationId() {
 		return locationId;
 	}
-	public void setLocationId(int locationId) {
+	public void setLocationId(Integer locationId) {
 		this.locationId = locationId;
 	}
+	
+	
+	
 	
 
 }

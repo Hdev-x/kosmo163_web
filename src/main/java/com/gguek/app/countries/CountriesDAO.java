@@ -9,6 +9,59 @@ import com.gguek.app.util.DBConnection;
 
 public class CountriesDAO {
 	
+	private DBConnection connection;
+	
+//	------------------------------------------------------------------
+	
+	
+	public CountriesDAO() {
+		
+		this.connection = new DBConnection();
+	}
+	
+	
+//	------------------------------------------------------------------
+	
+	
+	// 1. DB연결
+		// 2. 쿼리문 작성
+		// 3. 쿼리문 미리 전송
+		// 4. ?값을 세팅
+		// 5. 최종전송 및 결과처리
+		// 6. 연결 해제
+	
+	
+//	------------------------------------------------------------------
+	
+	
+	
+	public int create(CountiresDTO countiresDTO) throws Exception {
+		
+		Connection con = connection.getConnection(); 
+		String sql = """
+					INSERT INTO COUNTRIES
+					VALUES (?,?,?)
+				""";
+		
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, countiresDTO.getCountryId());
+		st.setString(2, countiresDTO.getCountryName());
+		st.setInt(3, countiresDTO.getRegionId());
+		
+		int result = st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result;
+	}
+	
+	
+	
+// ------------------------------------------------------------------
+	
+	
 	public CountiresDTO detail(String countryId) throws Exception {
 		DBConnection connection = new DBConnection();
 		Connection con = connection.getConnection();
@@ -39,6 +92,9 @@ public class CountriesDAO {
 		
 		return dto;
 	}
+	
+	
+//	------------------------------------------------------------------
 	
 	
 	public ArrayList<CountiresDTO> list() throws Exception {
@@ -81,5 +137,9 @@ public class CountriesDAO {
 		
 		return ar;
 	}
+	
+	
+//	------------------------------------------------------------------
+	
 
 }

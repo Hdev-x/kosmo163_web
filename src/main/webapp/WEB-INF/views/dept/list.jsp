@@ -11,10 +11,15 @@
 	<h4>부서 리스트</h4>
 	
 	<div>
+		<a href="./create">부서등록</a>
+	</div>
+	
+	<div>
 		<table>
 			<thead>
 				<tr>
-					<th>부서번호</th><th>부서명</th>
+					<th>부서번호</th>
+					<th>부서명</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,7 +27,7 @@
 				<c:forEach items="${list}" var="d">
 					<tr>
 						<td></a>${d.departmentId}</td>
-						<td><a href= "/dept/detail?departmentId=${d.departmentId}">${d.departmentName}</td>				
+						<td><a href= "./detail?departmentId=${d.departmentId}">${d.departmentName}</td>				
 					</tr>
 			<!-- getter의 이름 : getter메서드에서
 				 get을 빼고 () 빼고 첫글자를 소문자로 바꾼거

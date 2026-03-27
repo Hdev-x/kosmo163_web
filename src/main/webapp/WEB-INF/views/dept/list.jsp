@@ -25,10 +25,14 @@
 			<tbody>
 			
 				<c:forEach items="${list}" var="d">
-					<tr>
-						<td></a>${d.departmentId}</td>
-						<td><a href= "./detail?departmentId=${d.departmentId}">${d.departmentName}</td>				
-					</tr>
+    <tr>
+        <td>${d.departmentId}</td>
+        
+        <td>
+            <a href="./detail?departmentId=${d.departmentId}">${d.departmentName}</a>
+        </td>				
+    </tr>
+</c:forEach>
 			<!-- getter의 이름 : getter메서드에서
 				 get을 빼고 () 빼고 첫글자를 소문자로 바꾼거
 				 변수명과 비슷하지만 다르다.
@@ -37,7 +41,7 @@
 
 			 
 						 
-				</c:forEach>
+				
 			</tbody>
 		</table>
 	</div>

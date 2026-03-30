@@ -9,16 +9,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class CommunityController
+ * Servlet implementation class CommCreateController
  */
-@WebServlet("/comm/list")
-public class CommunityController extends HttpServlet {
+@WebServlet("/comm/create")
+public class CommCreateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommunityController() {
+    public CommCreateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,11 +27,12 @@ public class CommunityController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/comm/list.jsp");
+
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/comm/create.jsp");
 		view.forward(request, response);
 		
-		
+	
+	
 	}
 
 	/**

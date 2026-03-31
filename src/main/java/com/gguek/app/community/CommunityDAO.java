@@ -3,6 +3,8 @@ package com.gguek.app.community;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.gguek.app.util.DBConnection;
 
@@ -68,30 +70,68 @@ public class CommunityDAO {
 			
 			
 
-	public void list() throws Exception {
+	// 호출할 때 현재 페이지(page)와 한 페이지당 개수(size=10)를 전달받습니다.
+	public List<CommunityDTO> list(int page, int size) throws Exception {
+	    List<CommunityDTO> list = new ArrayList<>();
+	    
+	    // 시작 위치 계산 (예: 1페이지면 0번부터, 2페이지면 10번부터)
+	    int offset = (page - 1) * size;
 
-		// 1. DB 연결
-		Connection con = connection.getConnection();
+	    Connection con = connection.getConnection();
 
-		// 2. 쿼리문 작성
-		String sql = """
-					SELECT * FROM COMMUNITY;
-				""";
+	    // [중요] 최신 오라클(12c+) 페이징 쿼리
+	    String sql = """
+	                SELECT * FROM COMMUNITY 
+	                ORDER BY COMM_NO DESC 
+	                OFFSET ? ROWS FETCH NEXT ? ROWS ONLY
+	                """;
 
-		// 3. 쿼리문 미리 전송
-		PreparedStatement st = con.prepareStatement(sql);
+	    PreparedStatement st = con.prepareStatement(sql);
+	    st.setInt(1, offset); // 건너뛸 개수
+	    st.setInt(2, size);   // 가져올 개수
 
-		// 4.데이터(?)값 세팅
-		// 세팅할 데이터가 없음
+	    ResultSet rs = st.executeQuery();
 
-		// 5. 최종전송 및 결과처리
-		ResultSet rs = st.executeQuery();
-		CommunityDTO communityDTO = new CommunityDTO();
-	}	
+	    while (rs.next()) {
+	        CommunityDTO dto = new CommunityDTO();
+	        dto.setCommNo(rs.getInt("COMM_NO"));
+	        dto.setCommStar(rs.getInt("COMM_STAR"));
+	        dto.setCommTitle(rs.getString("COMM_TITLE"));
+	        dto.setCommName(rs.getString("COMM_NAME"));
+	        dto.setCommTime(rs.getDate("COMM_TIME"));
+	        list.add(dto);
+	    }
+
+	    rs.close();
+	    st.close();
+	    con.close();
+
+	    return list;
+	}
 		
 
 //-------------------------------------------------------------------		
 
 	
+	public int getTotalCount() throws Exception {
+	    int total = 0;
+	    Connection con = connection.getConnection();
+	    String sql = "SELECT COUNT(*) FROM COMMUNITY"; // 전체 행 개수 구하기
+	    
+	    PreparedStatement st = con.prepareStatement(sql);
+	    ResultSet rs = st.executeQuery();
+	    
+	    if(rs.next()) {
+	        total = rs.getInt(1); // 첫 번째 컬럼(count)의 값을 가져옴
+	    }
+	    
+	    rs.close();
+	    st.close();
+	    con.close();
+	    
+	    return total;
+	}
+	
+//	-------------------------------------------------------------------	
 
 }

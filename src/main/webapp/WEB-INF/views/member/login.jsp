@@ -75,6 +75,17 @@
     button:hover {
         background-color: #444; /* 마우스 올렸을 때 더 진하게 */
     }
+    
+    .error-msg {
+        color: #ff4d4f;      /* 경고 빨간색 */
+        background-color: #fff2f0; /* 연한 분홍 배경 */
+        border: 1px solid #ffccc7;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 13px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
 </style>
 
 </head>
@@ -82,6 +93,17 @@
 	<div class="login-container">
 
 		<h1>로그인 페이지</h1>
+		
+		<%
+            String loginError = (String)request.getAttribute("loginError");
+            if(loginError != null) {
+        %>
+            <div class="error-msg">
+                <%= loginError %>
+            </div>
+        <%
+            }
+        %>
 
 		<form action="./login" method="post">
 

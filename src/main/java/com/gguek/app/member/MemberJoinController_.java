@@ -26,34 +26,37 @@ public class MemberJoinController_ extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/joins.jsp");
 		view.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		
 		String name = request.getParameter("memberName");
 		String id = request.getParameter("memberID");
 		String pw = request.getParameter("memberPassword");
 		String email = request.getParameter("memberEmail");
-		
+
 		MemberDTO dto = new MemberDTO();
 		dto.setMemberId(id);
 		dto.setMemberPassword(pw);
 		dto.setMemberName(name);
 		dto.setMemberEmail(email);
-		
+
 		MemberDAO memberDAO = new MemberDAO();
 		try {
 			int result = memberDAO.join(dto);
 			if (result > 0) {
-				response.sendRedirect("/Home");
-			}else {
+				RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/result.jsp");
+				view.forward(request, response);
+			} else {
 				RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/member/joins.jsp");
 				view.forward(request, response);
 			}
@@ -61,7 +64,7 @@ public class MemberJoinController_ extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

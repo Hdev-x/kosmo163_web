@@ -1,16 +1,15 @@
 package com.gguek.app.community;
 
+import java.sql.Date;
+
 public class CommunityDTO {
 
 	private Integer commNo;
 	private String commTitle;
 	private String commName;
 	private String commContents;
-	private Integer commTime;
+	private Date commTime;
 	private Integer commStar;
-	
-	
-	
 	public Integer getCommNo() {
 		return commNo;
 	}
@@ -35,10 +34,10 @@ public class CommunityDTO {
 	public void setCommContents(String commContents) {
 		this.commContents = commContents;
 	}
-	public Integer getCommTime() {
+	public Date getCommTime() {
 		return commTime;
 	}
-	public void setCommTime(Integer commTime) {
+	public void setCommTime(Date commTime) {
 		this.commTime = commTime;
 	}
 	public Integer getCommStar() {
@@ -47,6 +46,9 @@ public class CommunityDTO {
 	public void setCommStar(Integer commStar) {
 		this.commStar = commStar;
 	}
+	
+	
+	
 	
 	
 }

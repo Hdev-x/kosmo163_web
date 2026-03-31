@@ -40,9 +40,7 @@
     </div>
 
     <div class="post-content">
-${not empty detail ? detail.content : "여기는 게시글의 상세 내용이 표시되는 구역입니다. 
-가짜 데이터로 채워져 있으며, 나중에 DB에서 가져온 실제 내용이 여기에 뿌려지게 됩니다. 
-줄바꿈도 잘 유지되도록 설정해두었습니다."}
+${not empty detail ? detail.content : "여기는 게시글의 상세 내용이 표시되는 구역입니다. "}
     </div>
 
     <div class="btn-area">

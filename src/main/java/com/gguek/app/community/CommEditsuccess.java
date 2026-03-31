@@ -10,20 +10,17 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import com.gguek.app.member.MemberDAO;
-import com.gguek.app.member.MemberDTO;
-
 /**
- * Servlet implementation class CommMypageController
+ * Servlet implementation class CommEditsuccess
  */
-@WebServlet("/comm/mypage")
-public class CommMypageController extends HttpServlet {
+@WebServlet("/comm/editSuccess")
+public class CommEditsuccess extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommMypageController() {
+    public CommEditsuccess() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +30,10 @@ public class CommMypageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MemberDTO loginMember = (MemberDTO) session.getAttribute("dto");
-
-		if(loginMember != null) {
-		    MemberDAO dao = new MemberDAO();
-		    MemberDTO myInfo;
-			try {
-				myInfo = dao.mypage(loginMember);
-				request.setAttribute("myInfo", myInfo); // JSP로 전달
-				
-				RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/comm/mypage.jsp");
-	            view.forward(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} // 정보를 채워옴
-		    
-		}else {
-			response.sendRedirect(request.getContextPath() + "/member/login");
-		}
+	    session.invalidate(); // 세션 폭파!
+	    
+	    // 메시지 페이지로 이동
+	    request.getRequestDispatcher("/WEB-INF/views/comm/editSuccess.jsp").forward(request, response);
 	}
 
 	/**

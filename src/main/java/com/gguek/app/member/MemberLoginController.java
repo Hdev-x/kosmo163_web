@@ -57,8 +57,16 @@ public class MemberLoginController extends HttpServlet {
 			
 			if (dto != null) {
 				System.out.println("OK");
+				HttpSession session = request.getSession();
+	            session.setAttribute("dto", dto); // DB에서 가져온 진짜 정보(result)를 세션에 저장
+	            
+	            // 성공했으니 게시판으로 보냅니다.
+	            response.sendRedirect(request.getContextPath() + "/comm/list");
 			}else {
 				System.out.println("FAIL");
+				
+				request.setAttribute("loginError", "아이디 또는 비밀번호가 틀렸습니다.");
+	            request.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(request, response);
 			}
 			
 			HttpSession session = request.getSession();

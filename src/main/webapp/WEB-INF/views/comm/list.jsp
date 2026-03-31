@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page import="java.util.*" %>
 
-<%
+<%-- <%
     // [학습용] DB 연동 전, 화면을 10개 데이터로 채워보기 위한 코드
     List<Map<String, Object>> mockList = new ArrayList<>();
     
@@ -19,7 +19,7 @@
     
     // 이 데이터를 'commList'라는 이름으로 저장해두면 아래 JSTL이 인식합니다.
     request.setAttribute("commList", mockList);
-%>
+%> --%>
 
 <!DOCTYPE html>
 <html>
@@ -52,40 +52,52 @@
     <h1>COMMUNITY</h1>
 
     <a href="/comm/create" class="write-btn">글쓰기</a>
+    <a href="/comm/mypage" class="mypage-btn">마이페이지</a>
 
     <table>
-        <thead>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>중요도</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성시간</th>
+        </tr>
+    </thead>
+    <tbody>
+    <c:choose>
+        <c:when test="${not empty commList}">
+            <c:forEach var="item" items="${commList}">
+                <tr>
+                    <%-- [1] item.no -> item.commNo --%>
+                    <td>${item.commNo}</td>
+                    
+                    <%-- [2] item.star -> item.commStar --%>
+                    <td class="star">${item.commStar == 1 ? '★' : '☆'}</td>
+                    
+                    <td class="title-cell">
+                        <%-- [3] item.no -> item.commNo / item.title -> item.commTitle --%>
+                        <a href="${pageContext.request.contextPath}/comm/detail?no=${item.commNo}">
+                            ${item.commTitle}
+                        </a>
+                    </td>
+                    
+                    <%-- [4] item.name -> item.commName --%>
+                    <td>${item.commName}</td>
+                    
+                    <%-- [5] item.createTime -> item.commTime --%>
+                    <td>${item.commTime}</td>
+                </tr>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
             <tr>
-                <th>No</th>
-                <th>중요도</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성시간</th>
+                <td colspan="5">등록된 게시글이 없습니다.</td>
             </tr>
-        </thead>
-        <tbody>
-            <c:choose>
-                <c:when test="${not empty commList}">
-                    <c:forEach var="item" items="${commList}">
-                        <tr>
-                            <td>${item.no}</td>
-                            <td class="star">${item.star == 1 ? '★' : '☆'}</td>
-                            <td class="title-cell">
-                                <a href="/comm/detail?no=${item.no}">${item.title}</a>
-                            </td>
-                            <td>${item.name}</td>
-                            <td>${item.createTime}</td>
-                        </tr>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <tr>
-                        <td colspan="5">등록된 게시글이 없습니다.</td>
-                    </tr>
-                </c:otherwise>
-            </c:choose>
-        </tbody>
-    </table>
+        </c:otherwise>
+    </c:choose>
+</tbody>
+</table>
 
 </body>
 </html>

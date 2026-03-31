@@ -65,7 +65,7 @@ public class MemberLoginController extends HttpServlet {
 			
 			session.setAttribute("dto", dto);
 			
-			response.sendRedirect("/Home");
+			response.sendRedirect("/comm/list");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

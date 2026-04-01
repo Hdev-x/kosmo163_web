@@ -23,55 +23,54 @@
 				</div>
 				<!------------------------------------------------------------------------>
 
-				<div class="container d-flex justify-content-center align-items-center min-vh-50">
-    <div class="col-md-8 col-lg-5">
-        
-        <h3 class="text-center mb-4 fw-bold">상세 정보</h3>
+				<div
+					class="container d-flex justify-content-center align-items-center min-vh-50">
+					<div class="col-md-8 col-lg-5">
 
-        <div class="card border-0 shadow">
-            <table class="table table-striped m-0">
-                <colgroup>
-                    <col style="width: 40%;">
-                    <col style="width: 60%;">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th class="ps-4 py-3 text-secondary">부서 번호</th>
-                        <td class="py-3">${dto.departmentId}</td>
-                    </tr>
-                    <tr>
-                        <th class="ps-4 py-3 text-secondary">부서 이름</th>
-                        <td class="py-3 fw-bold">${dto.departmentName}</td>
-                    </tr>
-                    <tr>
-                        <th class="ps-4 py-3 text-secondary">매니저 ID</th>
-                        <td class="py-3">${dto.managerId}</td>
-                    </tr>
-                    <tr>
-                        <th class="ps-4 py-3 text-secondary">위치 ID</th>
-                        <td class="py-3">${dto.locationId}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+						<h3 class="text-center mb-4 fw-bold">상세 정보</h3>
 
-        <div class="d-flex justify-content-center gap-3 mt-4">
-            <a href="update?departmentId=${dto.departmentId}" 
-               class="btn btn-dark px-4 shadow-sm">
-                수정
-            </a>
-            
-            <form action="delete" method="get" class="m-0">
-                <input type="hidden" name="departmentId" value="${dto.departmentId}">
-                <button type="submit" class="btn btn-outline-dark px-4 shadow-sm" 
-                        onclick="return confirm('정말 삭제하시겠습니까?');">
-                    삭제
-                </button>
-            </form>
-        </div>
+						<div class="card border-0 shadow">
+							<table class="table table-striped m-0">
+								<colgroup>
+									<col style="width: 40%;">
+									<col style="width: 60%;">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th class="ps-4 py-3 text-secondary">부서 번호</th>
+										<td class="py-3">${dto.departmentId}</td>
+									</tr>
+									<tr>
+										<th class="ps-4 py-3 text-secondary">부서 이름</th>
+										<td class="py-3 fw-bold">${dto.departmentName}</td>
+									</tr>
+									<tr>
+										<th class="ps-4 py-3 text-secondary">매니저 ID</th>
+										<td class="py-3">${dto.managerId}</td>
+									</tr>
+									<tr>
+										<th class="ps-4 py-3 text-secondary">위치 ID</th>
+										<td class="py-3">${dto.locationId}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
-    </div>
-</div>
+						<div class="d-flex justify-content-center gap-3 mt-4">
+							<a href="update?departmentId=${dto.departmentId}"
+								class="btn btn-dark px-4 shadow-sm"> 수정 </a>
+
+							<form action="delete" method="get" class="m-0">
+								<input type="hidden" name="departmentId"
+									value="${dto.departmentId}">
+								<button type="submit"
+									class="btn btn-outline-dark px-4 shadow-sm"
+									onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
 
 			</div>
 		</section>

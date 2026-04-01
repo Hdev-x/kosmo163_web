@@ -62,18 +62,15 @@ public class MemberLoginController extends HttpServlet {
 	            
 	            // 성공했으니 게시판으로 보냅니다.
 	            response.sendRedirect(request.getContextPath() + "/comm/list");
+	            return;
 			}else {
 				System.out.println("FAIL");
 				
 				request.setAttribute("loginError", "아이디 또는 비밀번호가 틀렸습니다.");
 	            request.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(request, response);
+	            return;
 			}
 			
-			HttpSession session = request.getSession();
-			
-			session.setAttribute("dto", dto);
-			
-			response.sendRedirect("/comm/list");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

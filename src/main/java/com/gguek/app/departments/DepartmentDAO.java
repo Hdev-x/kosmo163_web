@@ -76,6 +76,7 @@ public class DepartmentDAO {
 		
 		int result = st.executeUpdate();
 		
+		
 		st.close();
 		con.close();
 		
@@ -90,26 +91,31 @@ public class DepartmentDAO {
 	
 	
 	public int create(DepartmentDTO departmentDTO) throws Exception {
-		Connection con = connection.getConnection();
-		String sql = """
-						INSERT INTO DEPARTMENTS
-						VALUES (DEPARTMENTS_SEQ.NEXTVAL, ?, ?, ?)
-					""";
-		PreparedStatement st = con.prepareStatement(sql);
-		
-		st.setString(1, departmentDTO.getDepartmentName());
-		st.setInt(2, departmentDTO.getManagerId());
-		st.setInt(3, departmentDTO.getLocationId());
-		
-		int result = st.executeUpdate();
-		
-//		System.out.println(result);
-		
-		st.close();
-		con.close();
-		
-		return result;
-				
+	    int result = 0;
+	    String sql = "INSERT INTO DEPARTMENTS VALUES (DEPARTMENTS_SEQ.NEXTVAL, ?, ?, ?)";
+
+	    // Try-with-resources: 에러가 나든 안 나든 자동으로 close를 해줍니다.
+	    try (Connection con = connection.getConnection();
+	         PreparedStatement st = con.prepareStatement(sql)) {
+	        
+	        st.setString(1, departmentDTO.getDepartmentName());
+	        st.setInt(2, departmentDTO.getManagerId());
+	        st.setInt(3, departmentDTO.getLocationId());
+	        
+	        result = st.executeUpdate();
+	        
+	        // 결과 확인
+	        if (result > 0) {
+	            System.out.println("✅ DB 등록 성공: " + departmentDTO.getDepartmentName());
+	        } else {
+	            System.out.println("❌ DB 등록 실패");
+	        }
+	    } catch (Exception e) {
+	        System.out.println("⚠️ 에러 발생: " + e.getMessage());
+	        throw e; // 에러를 위로 던져서 상위 단계에서도 알 수 있게 함
+	    }
+	    
+	    return result;
 	}
 	
 	
